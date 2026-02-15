@@ -1,0 +1,45 @@
+name: Créer et publier l'image Docker
+
+on:
+  push:
+    branches:
+      - production
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+
+      - name: Determine Docker tag
+        id: determine-tag
+        run: |
+          if [[ "${GITHUB_REF}" == "refs/heads/pre-production" ]]; then
+            echo "docker-tag=beta" >> $GITHUB_ENV
+          elif [[ "${GITHUB_REF}" == "refs/heads/production" ]]; then
+            echo "docker-tag=latest" >> $GITHUB_ENV
+          fi
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build the Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          file: ./.docker/Dockerfile
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.docker-tag }}

@@ -1,0 +1,13 @@
+api_platform:
+  enable_docs: true
+  defaults:
+    pagination_enabled: false
+  formats:
+    jsonld: [ application/ld+json ]
+    json: [ application/json ]
+    html: [ text/html ]
+  patch_formats:
+    json: [ application/merge-patch+json ]
+  eager_loading:
+    force_eager: false
+  keep_legacy_inflector: false

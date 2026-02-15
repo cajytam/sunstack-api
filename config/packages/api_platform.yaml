@@ -1,0 +1,32 @@
+api_platform:
+  use_symfony_listeners: true
+  title: "API SunStack"
+  description: "Description de l'API de SunStack"
+  version: "%env(resolve:APP_VERSION)%"
+  show_webby: false
+  formats:
+    jsonld: ["application/ld+json"]
+    json: ["application/json"]
+    html: ["text/html"]
+  docs_formats:
+    jsonld: ["application/ld+json"]
+    jsonopenapi: ["application/vnd.openapi+json"]
+    html: ["text/html"]
+
+  patch_formats:
+    json: [application/merge-patch+json]
+
+  defaults:
+    extra_properties:
+      standard_put: true
+    pagination_enabled: false
+    cache_headers:
+      vary: ["Content-Type", "Authorization", "Origin"]
+  swagger:
+    api_keys:
+      access_token:
+        name: Authorization
+        type: header
+  eager_loading:
+    force_eager: false
+  keep_legacy_inflector: false

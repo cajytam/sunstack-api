@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Repository\User;
+
+use App\Entity\User\Notification;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+
+/**
+ * @extends ServiceEntityRepository<Notification>
+ *
+ * @method Notification|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Notification|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Notification[]    findAll()
+ * @method Notification[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class NotificationRepository extends ServiceEntityRepository
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Notification::class);
+    }
+
+    public function isNotificationAlreadyExistsAndUnread(
+        int    $userId,
+        string $title,
+        string $message
+    ): bool
+    {
+        $result = $this->findBy([
+            'user' => $userId,
+            'title' => $title,
+            'message' => $message,
+            'isRead' => false
+        ]);
+        return count($result) > 0;
+    }
+}

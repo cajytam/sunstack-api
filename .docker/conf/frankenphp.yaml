@@ -1,0 +1,50 @@
+server:
+  # Bind address and port
+  listen: "0.0.0.0:80"
+
+  # Path to your PHP application
+  document_root: "/app/public"
+
+  # Enable detailed errors
+  error_reporting: "E_ALL"
+  display_errors: "1"
+
+  # Security headers
+  headers:
+    X-Frame-Options: "DENY"
+    X-Content-Type-Options: "nosniff"
+    X-XSS-Protection: "1; mode=block"
+
+  # Default index file
+  index: "index.php"
+
+  # Logging settings
+  access_log: "/var/log/frankenphp/access.log"
+  error_log: "/var/log/frankenphp/error.log"
+
+# PHP settings
+php:
+  memory_limit: "512M"
+  upload_max_filesize: "50M"
+  post_max_size: "50M"
+  max_execution_time: "300"
+  max_input_time: "300"
+  date.timezone: "UTC"
+
+# Routing
+routes:
+  - match: "^/assets/"
+    serve: "/app/public/assets/"
+
+  - match: "^/"
+    forward: "index.php"
+
+# Opcache settings
+opcache:
+  enable: "1"
+  enable_cli: "1"
+  memory_consumption: "128"
+  interned_strings_buffer: "8"
+  max_accelerated_files: "10000"
+  validate_timestamps: "1"
+  revalidate_freq: "2"

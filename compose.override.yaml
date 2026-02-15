@@ -1,0 +1,10 @@
+services:
+  database:
+    ports:
+      - "3306:3306"
+
+  mailer:
+    image: schickling/mailcatcher
+    ports:
+      - "1025:1025"
+      - "1080:1080"

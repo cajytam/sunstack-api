@@ -1,0 +1,47 @@
+vich_uploader:
+  db_driver: orm
+  twig: false
+  form: false
+  metadata:
+    type: attribute
+  mappings:
+    user_avatar:
+      upload_destination: '%kernel.project_dir%/public/img/users'
+      namer:
+        service: Vich\UploaderBundle\Naming\PropertyNamer
+        options: { property: 'id' }
+    simulation_docs:
+      upload_destination: '%kernel.project_dir%/uploads'
+      namer:
+        service: Vich\UploaderBundle\Naming\UniqidNamer
+      directory_namer:
+        service: vich_uploader.namer_directory_property
+        options: { property: 'identifier' }
+    survey_docs:
+      upload_destination: '%kernel.project_dir%/uploads'
+      delete_on_remove: true
+      delete_on_update: true
+      namer:
+        service: Vich\UploaderBundle\Naming\UniqidNamer
+      directory_namer:
+        service: App\Service\Namer\DirectoryNamerFileSurvey
+    task_simulation_docs:
+      upload_destination: '%kernel.project_dir%/uploads'
+      delete_on_remove: true
+      delete_on_update: true
+      namer:
+        service: Vich\UploaderBundle\Naming\UniqidNamer
+      directory_namer:
+        service: App\Service\Namer\DirectoryNamerFileTaskSimulation
+    documentation_file:
+      upload_destination: '%kernel.project_dir%/uploads/docs'
+      delete_on_remove: true
+      delete_on_update: true
+      namer:
+        service: Vich\UploaderBundle\Naming\UniqidNamer
+
+  #mappings:
+  #    products:
+  #        uri_prefix: /images/products
+  #        upload_destination: '%kernel.project_dir%/public/images/products'
+  #        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

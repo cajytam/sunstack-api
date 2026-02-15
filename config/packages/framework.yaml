@@ -1,0 +1,51 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    http_client:
+        scoped_clients:
+            siret.client:
+                base_uri: 'https://api.insee.fr/entreprises/sirene/V3/siret/'
+                auth_bearer: '%env(INSEE_TOKEN)%'
+                headers:
+                    Accept: 'application/json'
+            opendatasoft.client:
+                base_uri: 'https://public.opendatasoft.com/api/records/1.0/search/'
+                headers:
+                    Accept: 'application/json'
+            gouvadresse.client:
+                base_uri: 'https://api-adresse.data.gouv.fr/search/'
+                headers:
+                    Accept: 'application/json'
+            pvgis.client:
+                base_uri: 'https://re.jrc.ec.europa.eu/api/v5_2/'
+                headers:
+                    Accept: 'application/json'
+            geoapigouvcommunes.client:
+                base_uri: 'https://geo.api.gouv.fr'
+                auth_bearer: '%env(METEO_FRANCE_TOKEN)%'
+                headers:
+                    Accept: 'application/json'
+
+    secret: '%env(APP_SECRET)%'
+    #csrf_protection: true
+    http_method_override: false
+    handle_all_throwables: true
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
+    session:
+        handler_id: null
+        cookie_secure: true
+        cookie_samesite: none
+        storage_factory_id: session.storage.factory.native
+        cookie_lifetime: 408000
+
+    #esi: true
+    #fragments: true
+    php_errors:
+        log: true
+
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
