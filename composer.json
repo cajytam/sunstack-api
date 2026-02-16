@@ -67,18 +67,15 @@
     "symfony/polyfill-php81": "*"
   },
   "scripts": {
-    "chmod:cache": "chmod -R 775 var/cache var/log",
     "auto-scripts": {
       "cache:clear": "symfony-cmd",
       "assets:install %PUBLIC_DIR%": "symfony-cmd"
     },
     "post-install-cmd": [
-      "@auto-scripts",
-      "@chmod:cache"
+      "@auto-scripts"
     ],
     "post-update-cmd": [
-      "@auto-scripts",
-      "@chmod:cache"
+      "@auto-scripts"
     ]
   },
   "conflict": {
