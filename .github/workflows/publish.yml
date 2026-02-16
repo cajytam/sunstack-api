@@ -3,6 +3,7 @@ name: Créer et publier l'image Docker
 on:
   push:
     branches:
+      - beta
       - production
 
 env:
@@ -23,7 +24,7 @@ jobs:
       - name: Determine Docker tag
         id: determine-tag
         run: |
-          if [[ "${GITHUB_REF}" == "refs/heads/pre-production" ]]; then
+          if [[ "${GITHUB_REF}" == "refs/heads/beta" ]]; then
             echo "docker-tag=beta" >> $GITHUB_ENV
           elif [[ "${GITHUB_REF}" == "refs/heads/production" ]]; then
             echo "docker-tag=latest" >> $GITHUB_ENV
