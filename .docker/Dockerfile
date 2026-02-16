@@ -41,7 +41,5 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | b
 COPY . /app
 RUN cd /app && composer install --no-dev --optimize-autoloader
 
-RUN chmod -R 777 var/cache var/log
-
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
