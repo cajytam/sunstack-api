@@ -33,7 +33,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Attribute as Vich;
 
 #[Vich\Uploadable]
 #[ApiResource(
@@ -121,10 +121,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public ?File $file = null;
 
     #[Groups([
-        'user:read', 'user:write', 'userAll:read', 'simulation:read', 'simulationAll:read', 'history:read',
-        'status_simulation:read', 'task_simulation:read', 'task_comment_simulation:read', 'file_task:read',
-        'inverter:read', 'inverterPrice:read', 'panel:read', 'doc_category:read', 'panelPrice:read', 'pricing_factor_type:read',
-        'battery:read', 'batteryPrice:read', 'inverterCablePrice:read', 'inverterCable:read', 'simulation_charging_point:read'
+        'user:read',
+        'user:write',
+        'userAll:read',
+        'simulation:read',
+        'simulationAll:read',
+        'history:read',
+        'status_simulation:read',
+        'task_simulation:read',
+        'task_comment_simulation:read',
+        'file_task:read',
+        'inverter:read',
+        'inverterPrice:read',
+        'panel:read',
+        'doc_category:read',
+        'panelPrice:read',
+        'pricing_factor_type:read',
+        'battery:read',
+        'batteryPrice:read',
+        'inverterCablePrice:read',
+        'inverterCable:read',
+        'simulation_charging_point:read'
     ])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $picture = null;
@@ -410,10 +427,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     #[Groups([
-        'simulation:read', 'simulationAll:read', 'user:read', 'userAll:read', 'history:read', 'survey:read',
-        'status_simulation:read', 'surveySimulation:read', 'task_simulation:read', 'task_comment_simulation:read',
-        'file_task:read', 'inverter:read', 'inverterPrice:read', 'doc_category:read', 'file:export', 'panel:read', 'panelPrice:read',
-        'pricing_factor_type:read', 'battery:read', 'batteryPrice:read', 'inverterCable:read', 'inverterCablePrice:read', 'simulation_charging_point:read'
+        'simulation:read',
+        'simulationAll:read',
+        'user:read',
+        'userAll:read',
+        'history:read',
+        'survey:read',
+        'status_simulation:read',
+        'surveySimulation:read',
+        'task_simulation:read',
+        'task_comment_simulation:read',
+        'file_task:read',
+        'inverter:read',
+        'inverterPrice:read',
+        'doc_category:read',
+        'file:export',
+        'panel:read',
+        'panelPrice:read',
+        'pricing_factor_type:read',
+        'battery:read',
+        'batteryPrice:read',
+        'inverterCable:read',
+        'inverterCablePrice:read',
+        'simulation_charging_point:read'
     ])]
     public function getFullName(): string
     {

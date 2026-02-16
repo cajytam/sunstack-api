@@ -15,7 +15,7 @@ use App\Repository\Survey\FileSurveyRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Attribute\Groups;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Attribute as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: FileSurveyRepository::class)]
@@ -51,7 +51,7 @@ class FileSurvey
     #[Vich\UploadableField(mapping: 'survey_docs', fileNameProperty: 'filename')]
     public ?File $file = null;
 
-    #[Groups(['file_survey:read', 'file_survey:write', 'survey:read', 'surveySimulation:read'])]
+    #[Groups(['file_survey:read', 'survey:read', 'surveySimulation:read'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $filename = null;
 

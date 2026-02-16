@@ -16,7 +16,7 @@ use App\Repository\Simulation\FileSimulationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Attribute\Groups;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Attribute as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: FileSimulationRepository::class)]
@@ -51,7 +51,7 @@ class FileSimulation
     #[Vich\UploadableField(mapping: 'simulation_docs', fileNameProperty: 'filename')]
     public ?File $file = null;
 
-    #[Groups(['simulation:read', 'file_simulation:read', 'file_simulation:write'])]
+    #[Groups(['simulation:read', 'file_simulation:read'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $filename = null;
 

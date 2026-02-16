@@ -25,8 +25,17 @@ class FileSimulationVoter extends Voter
 
         switch ($attribute) {
             case self::VIEW:
-                if (in_array('ROLE_USER', $user->getRoles()))
+                if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
                     return true;
+                }
+                $simulation = $subject->getSimulation();
+                if (!$simulation) {
+                    return false;
+                }
+                $owner = $simulation->getOwnedBy();
+                if ($owner && $owner->getId() === $user->getId()) {
+                    return true;
+                }
                 break;
         }
 

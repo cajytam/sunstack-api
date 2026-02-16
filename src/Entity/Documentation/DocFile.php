@@ -17,7 +17,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Attribute\Groups;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Attribute as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: DocFileRepository::class)]
@@ -50,7 +50,7 @@ class DocFile
     #[Vich\UploadableField(mapping: 'documentation_file', fileNameProperty: 'path')]
     public ?File $file = null;
 
-    #[Groups(['doc_category:read', 'doc_file:write', 'doc_file:read'])]
+    #[Groups(['doc_category:read', 'doc_file:read'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $path = null;
 

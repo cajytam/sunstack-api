@@ -25,8 +25,17 @@ class FileSurveyVoter extends Voter
 
         switch ($attribute) {
             case self::VIEW:
-                if (in_array('ROLE_USER', $user->getRoles()))
+                if (in_array('ROLE_ADMIN', $user->getRoles(), true)) {
                     return true;
+                }
+                $survey = $subject->getSurvey();
+                if (!$survey || !$survey->getSimulation()) {
+                    return false;
+                }
+                $owner = $survey->getSimulation()->getOwnedBy();
+                if ($owner && $owner->getId() === $user->getId()) {
+                    return true;
+                }
                 break;
         }
 
