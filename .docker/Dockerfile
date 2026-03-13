@@ -41,9 +41,10 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | b
 COPY . /app
 RUN cd /app && composer install --no-dev --optimize-autoloader
 
-RUN mkdir -p /app/var/log /app/var/cache/mpdf /app/var/sessions && \
-    chown -R www-data:www-data /app/var && \
-    chmod -R 775 /app/var
-
 RUN a2enmod rewrite remoteip && \
     a2enconf z-app
+
+COPY ./.docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["docker-entrypoint.sh"]
