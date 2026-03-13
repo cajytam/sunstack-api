@@ -3,7 +3,7 @@ name: Créer et publier l'image Docker
 on:
   push:
     branches:
-      - beta
+      # - beta
       - production
 
 env:
