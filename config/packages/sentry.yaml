@@ -13,8 +13,8 @@ when@prod:
     monolog:
         handlers:
             sentry:
-            type: sentry
-            hub_id: Sentry\State\HubInterface
+                type: sentry
+                hub_id: Sentry\State\HubInterface
 #
 #        # If you are using Monolog, you also need this additional configuration to log the errors correctly:
 #        # https://docs.sentry.io/platforms/php/guides/symfony/integrations/monolog/
