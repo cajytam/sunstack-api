@@ -90,7 +90,3 @@ when@prod:
                 process_psr_3_messages: false
                 level: warning
                 formatter: monolog.formatter.json
-
-            sentry:
-                type: sentry
-                hub_id: Sentry\State\HubInterface
