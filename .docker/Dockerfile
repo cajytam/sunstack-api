@@ -19,6 +19,9 @@ RUN apt-get update -qq && \
     unzip \
     zip \
     libpq-dev \
+    gcc \
+    make \
+    autoconf \
     zlib1g-dev && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -27,6 +30,7 @@ RUN docker-php-ext-configure zip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) intl opcache pdo pdo_mysql gd zip \
     && pecl install apcu \
+    && pecl install opentelemetry \
     && docker-php-ext-enable apcu
 COPY ./.docker/conf/php.ini /usr/local/etc/php/conf.d/app.ini
 
