@@ -44,14 +44,6 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | b
 
 COPY . /app
 
-RUN cd /app && composer require \
-    open-telemetry/sdk \
-    open-telemetry/exporter-otlp \
-    open-telemetry/opentelemetry-auto-symfony \
-    open-telemetry/opentelemetry-auto-doctrine \
-    open-telemetry/opentelemetry-auto-psr18 \
-    --no-interaction --no-dev --optimize-autoloader
-
 RUN cd /app && composer install --no-dev --optimize-autoloader
 
 RUN a2enmod rewrite remoteip && \
