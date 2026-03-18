@@ -1,4 +1,4 @@
-FROM php:8.4.18-apache
+FROM php:8.4-apache
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
@@ -28,6 +28,10 @@ RUN docker-php-ext-configure zip \
     && docker-php-ext-install -j$(nproc) intl opcache pdo pdo_mysql gd zip \
     && pecl install apcu \
     && docker-php-ext-enable apcu
+
+RUN pecl install opentelemetry \
+    && docker-php-ext-enable opentelemetry
+
 COPY ./.docker/conf/php.ini /usr/local/etc/php/conf.d/app.ini
 
 # Apache
@@ -39,6 +43,15 @@ COPY ./.docker/conf/apache.conf /etc/apache2/conf-available/z-app.conf
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash && apt install -y symfony-cli
 
 COPY . /app
+
+RUN cd /app && composer require \
+    open-telemetry/sdk \
+    open-telemetry/exporter-otlp \
+    open-telemetry/opentelemetry-auto-symfony \
+    open-telemetry/opentelemetry-auto-doctrine \
+    open-telemetry/opentelemetry-auto-psr18 \
+    --no-interaction --no-dev --optimize-autoloader
+
 RUN cd /app && composer install --no-dev --optimize-autoloader
 
 RUN a2enmod rewrite remoteip && \
